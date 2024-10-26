@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { signup } from "@/actions/user";
 const Signup=()=>{
 
     const handleSignup = async () => {
@@ -17,13 +17,12 @@ const Signup=()=>{
             // Make a POST request to the signup API
             console.log("Inside");
             
-            const response = await axios.post("http://localhost:3000/api/user", {
-                username,
-                password,
-            });
+            const response = await signup(username,password);
+            localStorage.setItem("token",response);
+            
 
             // Log the response for debugging
-            console.log('Response:', response.data);
+    
 
             // Redirect to the home page after successful sign up
             router.push("/");
